@@ -1,5 +1,8 @@
 #:import hex kivy.utils.get_color_from_hex
+#:import SlideTransition kivy.uix.screenmanager.SlideTransition
+
 <ViewScreenManager>
+    transition: SlideTransition()
     MainMenu:
         name: 'main_menu'
     NewGame:
@@ -9,106 +12,9 @@
     config: config
     BoxLayout:
         orientation: 'vertical'
-        AnchorLayout:
-            anchor_x: 'right'
-            anchor_y: 'top'
-            size_hint_y: None
-            size: root.width,40
-            canvas.before:
-                Color:
-                    rgba: hex("#383838")
-                Rectangle:
-                    pos: self.pos
-                    size: self.size
-
-            BoxLayout:
-                size_hint_x:None
-                spacing: "2dp"
-                canvas.before:
-                    Color:
-                        rgba: hex("#383838")
-                    Rectangle:
-                        pos: self.pos
-                        size: self.size
-                MenuButton:
-                    text: '-'
-                    size_hint_y: None
-                    size_hint_x:None
-                    size: 50,60
-                    height: "40dp"
-                    color: hex('#383838')
-                    on_release:
-                        root.manager.transition.direction = 'left'
-                        app.root.current = 'new_game'
-
-                MenuButton:
-                    text: 'x'
-                    size_hint_y: None
-                    size_hint_x:None
-                    size: 50,40
-                    height: "40dp"
-                    color: hex('#383838')
-                    on_release:
-                        root.manager.transition.direction = 'left'
-                        app.root.current = 'new_game'
-
-
-            RelativeLayout:
-                size_hint_x:None
-                size: root.width-55, 40
-                canvas.before:
-                    Color:
-                        rgba: hex("#383838")
-                    Rectangle:
-                        pos: self.pos
-                        size: self.size
-
-                BoxLayout:
-                    spacing:"2dp"
-                    Button:
-                        text: 'Pagina 1'
-                        color: hex('#FFFFFF')
-                        size_hint_y: None
-                        size_hint_x:None
-                        size: 70,40
-                        height: "40dp"
-                        on_release:
-                            root.manager.transition.direction = 'left'
-                            app.root.current = 'new_game'
-                    Button:
-                        text: 'Pagina 2'
-                        color: hex('#FFFFFF')
-                        size_hint_y: None
-                        size_hint_x:None
-                        size: 70,40
-                        height: "40dp"
-                        on_release:
-                            root.manager.transition.direction = 'left'
-                            app.root.current = 'new_game'
-
-
-            RelativeLayout:
-                size_hint_x:None
-                size: root.width, 40
-                canvas.before:
-                    Color:
-                        rgba: hex("#383838")
-                    Rectangle:
-                        pos: self.pos
-                        size: self.size
-                BoxLayout:
-                    MenuButton:
-                        text: 'Cfg'
-                        size_hint_y: None
-                        size_hint_x:None
-                        size: 50,40
-                        height: "40dp"
-                        color: hex('#202020')
-                        on_release:
-                            root.manager.transition.direction = 'left'
-                            app.root.current = 'new_game'
-
-
+        ToolBar:
+            size_hint_y:None
+            size: root.width, "40dp"
         BoxLayout:
             orientation: 'vertical'
             padding: root.width*0.25, root.height*0.3
@@ -157,17 +63,122 @@
                     root.clicou()
 
 
-<NewGame>:
+<ToolBar@AnchorLayout>:
+    AnchorLayout:
+        anchor_x: 'right'
+        anchor_y: 'top'
+        canvas.before:
+            Color:
+                rgba: hex("#383838")
+            Rectangle:
+                pos: self.pos
+                size: self.size
 
+        BoxLayout:
+            size_hint_x:None
+            spacing: "2dp"
+            canvas.before:
+                Color:
+                    rgba: hex("#383838")
+                Rectangle:
+                    pos: self.pos
+                    size: self.size
+            MenuButton:
+                text: '-'
+                size_hint_y: None
+                size_hint_x:None
+                size: 50,60
+                height: "40dp"
+                color: hex('#383838')
+                on_release:
+                    app.root.transition = SlideTransition(direction='left')
+                    app.root.current = 'new_game'
+
+            MenuButton:
+                text: 'x'
+                size_hint_y: None
+                size_hint_x:None
+                size: 50,40
+                height: "40dp"
+                color: hex('#383838')
+                on_release:
+                    app.stop()
+
+
+        RelativeLayout:
+            size_hint_x:None
+            size: root.width-55, 40
+            canvas.before:
+                Color:
+                    rgba: hex("#383838")
+                Rectangle:
+                    pos: self.pos
+                    size: self.size
+
+            BoxLayout:
+                spacing:"2dp"
+                Button:
+                    text: 'Pagina 1'
+                    color: hex('#FFFFFF')
+                    size_hint_y: None
+                    size_hint_x:None
+                    size: 70,40
+                    height: "40dp"
+                    on_release:
+                        app.root.transition = SlideTransition(direction='left')
+                        app.root.current = 'new_game'
+                Button:
+                    text: 'Pagina 2'
+                    color: hex('#FFFFFF')
+                    size_hint_y: None
+                    size_hint_x:None
+                    size: 70,40
+                    height: "40dp"
+                    on_release:
+                        app.root.transition = SlideTransition(direction='left')
+                        app.root.current = 'new_game'
+
+
+        RelativeLayout:
+            size_hint_x:None
+            size: root.width, 40
+            canvas.before:
+                Color:
+                    rgba: hex("#383838")
+                Rectangle:
+                    pos: self.pos
+                    size: self.size
+            BoxLayout:
+                MenuButton:
+                    text: 'Cfg'
+                    size_hint_y: None
+                    size_hint_x:None
+                    size: 50,40
+                    height: "40dp"
+                    color: hex('#202020')
+                    on_release:
+                        app.root.transition = SlideTransition(direction='right')
+                        app.root.current = 'main_menu'
+
+<NewGame>:
     BoxLayout:
         orientation: 'vertical'
-        ActionBar:
-            ActionView:
-                ActionPrevious:
-                    title:'New Game'
-                    on_release:
-                        root.manager.transition.direction = 'right'
-                        app.root.current = 'main_menu'
+
+        ToolBar:
+            size_hint_y:None
+            size: root.width, "40dp"
+        BoxLayout:
+            orientation: 'vertical'
+            padding: root.width*0.25, root.height*0.3
+            spacing: "20dp"
+            canvas.before:
+                Color:
+                    rgba: hex("#404040")
+                Rectangle:
+                    pos: self.pos
+                    size: self.size
+
+
 
         BoxLayout:
             orientation: 'vertical'

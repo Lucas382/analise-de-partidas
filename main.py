@@ -1,5 +1,8 @@
 import sqlite3
 from kivy.app import App
+from kivy.uix.boxlayout import BoxLayout
+from kivy.uix.anchorlayout import AnchorLayout
+from kivy.uix.relativelayout import RelativeLayout
 from kivy.uix.screenmanager import ScreenManager, Screen
 from kivy.uix.behaviors import ButtonBehavior
 from kivy.uix.label import Label
@@ -13,15 +16,21 @@ class ViewScreenManager(ScreenManager):
     pass
 
 class MainMenu(Screen):
-    config = ObjectProperty(None)
-
-    def clicou(self):
-        print("Voce clicou no botao " + self.config.text)
-
-
+    # config = ObjectProperty(None)
+    # def clicou(self):
+    #     print("Voce clicou no botao " + self.config.text)
+    pass
 
 class NewGame(Screen):
     pass
+
+# class ToolBar(BoxLayout,AnchorLayout,RelativeLayout):
+#     def __init__(self,**Kwargs):
+#         super(ToolBar, self).__init__(**Kwargs)
+#         anc_layout = AnchorLayout(
+#             anchor_x='right', anchor_y='top', size_hint_y= None, size= (600,40))
+#         btn = Label(text='Hello World')
+#         anc_layout.add_widget(btn)
 
 
 class MenuButton(ButtonBehavior, Label):
