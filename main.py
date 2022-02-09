@@ -10,28 +10,31 @@ from kivy.properties import ListProperty
 from kivy.graphics import Color, Ellipse, Rectangle
 from kivy.utils import get_color_from_hex
 from kivy.properties import ObjectProperty
+from kivy.uix.button import Button
 from kivy.uix.tabbedpanel import TabbedPanel
 
 class ViewScreenManager(ScreenManager):
     pass
 
 class MainMenu(Screen):
-    # config = ObjectProperty(None)
-    # def clicou(self):
-    #     print("Voce clicou no botao " + self.config.text)
     pass
 
 class NewGame(Screen):
     pass
+class ToolBar(AnchorLayout):
+    box = ObjectProperty(None)
+    def clicou(self):
+        self.ids.box.add_widget(Tabs(text='New tab'))
 
-# class ToolBar(BoxLayout,AnchorLayout,RelativeLayout):
-#     def __init__(self,**Kwargs):
-#         super(ToolBar, self).__init__(**Kwargs)
-#         anc_layout = AnchorLayout(
-#             anchor_x='right', anchor_y='top', size_hint_y= None, size= (600,40))
-#         btn = Label(text='Hello World')
-#         anc_layout.add_widget(btn)
-
+class Tabs(Button):
+    def __init__(self, text='', **Kwargs):
+        super().__init__(**Kwargs)
+        self.text = text
+        self.color = '#FFFFFF'
+        self.size_hint_y = None
+        self.size_hint_x = None
+        self.size = 70, 40
+        self.height = "40dp"
 
 class MenuButton(ButtonBehavior, Label):
     cor = ListProperty(get_color_from_hex('#D0D0D0'))
